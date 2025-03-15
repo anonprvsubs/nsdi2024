@@ -105,16 +105,11 @@ helm install jaeger jaegertracing/jaeger -n jaeger
 ```
 This installation can take 4-5 minutes. Some pods may remain in CrashLoopBackOff but after 4-5 restarts all pods should be "Running"
 
-5. Install the OpenTelemetry operator
+5. Install OpenTelemetry
 
 ```
-helm install --namespace opentelemetry-operator-system my-opentelemetry-operator open-telemetry/opentelemetry-operator
-```
+helm upgrade --install opentelemetry-collector open-telemetry/opentelemetry-collector --version 0.65.0 --values otel.yaml -n test
 
-6. Install the OpenTelemetry Agents using the provided yaml file
-
-```
-kubectl apply -f otelcollector.yaml
 ```
 
 ### Step 3: Run the 5G Core
