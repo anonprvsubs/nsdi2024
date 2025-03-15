@@ -88,8 +88,7 @@ helm repo add open-telemetry https://open-telemetry.github.io/opentelemetry-helm
 
 ```
 kubectl create ns jaeger; 
-kubectl create namespace opentelemetry-operator-system; 
-kubectl create ns otel-collector; 
+kubectl create ns otel; 
 kubectl create ns oai
 ```
 
