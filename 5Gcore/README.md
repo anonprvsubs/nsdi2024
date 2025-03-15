@@ -69,12 +69,10 @@ $ mkdir -p ~/.kube;
 $  kube_config_cluster.yml ~/.kube/config; 
 ```
 
-4. Install Helm on the Bastion node
-```
-$ wget https://get.helm.sh/helm-v3.5.2-linux-amd64.tar.gz;
-tar -zxvf helm-v3.5.2-linux-amd64.tar.gz;
-sudo mv linux-amd64/helm /usr/local/bin/helm;
-```
+4. Install Helm
+
+https://helm.sh/docs/intro/install/
+
 ### Step 2: Deploy the Instrumentation Pipeline
 
 1. Add the required helm repositories to the Bastion node
@@ -95,7 +93,7 @@ kubectl create ns oai
 3. Deploy certificate manager
 
 ```
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.yaml
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.17.0/cert-manager.yaml
 ```
 
 4. Install Jaeger using Helm charts
@@ -111,6 +109,18 @@ This installation can take 4-5 minutes. Some pods may remain in CrashLoopBackOff
 helm upgrade --install opentelemetry-collector open-telemetry/opentelemetry-collector --version 0.65.0 --values otel.yaml -n test
 
 ```
+
+6. In case DNS resolution does not work in the cluster, replace the IP of Jaeger Collector in the otel.yaml with the IP of Jaeger Collector pod
+
+
+7. Port Forward for UI access using public IP
+
+```
+kubectl port-forward -n jaeger service/jaeger-query --address 0.0.0.0 16686:80
+
+```
+
+
 
 ### Step 3: Run the 5G Core
 
